@@ -51,11 +51,10 @@ pipeline {
             steps {
                 script {
                     def json = readJSON(file: "${WORKSPACE}/logs/jenkins-frontend-1_audit.json")
+                    echo "Json size: ${json.size()}"
 
-                    def test = json.vulnerabilities
-                    def data = []
-                    echo "${test}"
 
+                    // def data = []
                     // for (int i = 0; i < json.vulnerabilities.size(); i++) {
                     //         data.add("${json.vulnerabilities[i].name}")
                     // }
