@@ -50,7 +50,7 @@ pipeline {
         stage("Handle results") {
             steps {
                 script {
-                    def json = readJson file: "${WORKSPACE}/logs/jenkins-frontend-1_audit.json"
+                    def json = readJSON(file: "${WORKSPACE}/logs/jenkins-frontend-1_audit.json")
                     
                     def data = []
                     for (i = 0; i < json.vulnerabilities.size(); i++) {
