@@ -54,10 +54,11 @@ pipeline {
                     // echo "Json vulnerabilities: ${json.vulnerabilities}"
                     for(int i = 0; i <= json.vulnerabilities.size(); i++) {
                         echo "i: ${i}"
+                        echo "${json.vulnerabilities[i]}"
                     }
-                    echo "${json.vulnerabilities}"
-                    echo "${json.metadata}"
-                    def data = []
+                    // echo "${json.vulnerabilities}"
+                    // echo "${json.metadata}"
+                    // def data = []
                     // for (int i = 0; i <= json.size(); i++) {
                     //         echo "${json[2]}"
                     //         // data.add("${json.vulnerabilities[i].name}")
