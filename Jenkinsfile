@@ -3,6 +3,9 @@ pipeline {
     options {
         skipDefaultCheckout(true)
     }
+    tools {
+        nodejs "NodeJS_22"
+    }
 
     stages {
         stage("Setup") {
