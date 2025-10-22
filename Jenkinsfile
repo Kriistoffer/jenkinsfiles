@@ -54,7 +54,7 @@ pipeline {
                     
                     def data = []
                     for (i = 0; i < json.vulnerabilities.size(); i++) {
-                            data["name"] = "${json.vulnerabilities[i].name}"
+                            data.add("${json.vulnerabilities[i].name}")
                     }
                 }
             }
