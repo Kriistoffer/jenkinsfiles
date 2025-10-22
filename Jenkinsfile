@@ -1,58 +1,58 @@
 pipeline {
     agent any
     options {
-        skipDefaultCheckout(true)
+        skipDefaultCheckout(false)
     }
     tools {
         nodejs "NodeJS_22"
     }
 
     stages {
-        stage("Setup") {
-            steps {
-                script {
-                    echo "Cleaning workspace..."
-                    cleanWs()
+        // stage("Setup") {
+        //     steps {
+        //         script {
+        //             echo "Cleaning workspace..."
+        //             cleanWs()
 
-                    echo "Checking out source code..."
-                    checkout scm
+        //             echo "Checking out source code..."
+        //             checkout scm
 
-                    if (!fileExists('logs')) {
-                        echo "Setting up a log directory..."
-                        sh 'mkdir logs'
-                    }
+        //             if (!fileExists('logs')) {
+        //                 echo "Setting up a log directory..."
+        //                 sh 'mkdir logs'
+        //             }
 
 
-                    try {
-                        sh "git clone https://github.com/Kriistoffer/jenkins-frontend-1.git"
-                    } catch (error) {
-                        echo "Failed to clone the repository due to ${error}"
-                    }
-                }
-            }
-        }
-        stage('Scan') {
-            steps {
-                script {
-                    def files = findFiles(glob: "**/package.json", excludes: "${env.NODE_EXCLUDE_LIST}")
+        //             try {
+        //                 sh "git clone https://github.com/Kriistoffer/jenkins-frontend-1.git"
+        //             } catch (error) {
+        //                 echo "Failed to clone the repository due to ${error}"
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Scan') {
+        //     steps {
+        //         script {
+        //             def files = findFiles(glob: "**/package.json", excludes: "${env.NODE_EXCLUDE_LIST}")
 
-                    for (file in files) {
-                        def parentDirectory = "${file.path}" - "/${file.name}"
+        //             for (file in files) {
+        //                 def parentDirectory = "${file.path}" - "/${file.name}"
 
-                        dir("${parentDirectory}") {
-                            sh "npm install"
-                            sh "npm audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json || true"
-                        }
-                    }
-                }
-            }
-        }
+        //                 dir("${parentDirectory}") {
+        //                     sh "npm install"
+        //                     sh "npm audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json || true"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage("Handle results") {
             steps {
                 script {
-                    def json = readJSON(file: "${WORKSPACE}/logs/jenkins-frontend-1_audit.json")
+                    def json = readJSON(file: "jenkins-frontend-1_audit.json")
                     // echo "Json vulnerabilities: ${json.vulnerabilities}"
-                    echo "${json.vulnerabilitie}"
+                    echo "${json.vulnerabilities}"
                     echo "${json.metadata}"
                     def data = []
                     // for (int i = 0; i <= json.size(); i++) {
