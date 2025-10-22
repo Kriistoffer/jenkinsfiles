@@ -44,12 +44,12 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                script {
+        // stage('Deploy') {
+        //     steps {
+        //         script {
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
     }
 }
