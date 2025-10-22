@@ -54,7 +54,7 @@ pipeline {
                     // echo "Json vulnerabilities: ${json.vulnerabilities}"
                     for(int i = 0; i <= json.vulnerabilities.size(); i++) {
                         echo "i: ${i}"
-                        echo "${json.vulnerabilities[i]}"
+                        echo "${json.vulnerabilities.postcss.name}"
                     }
                     // echo "${json.vulnerabilities}"
                     // echo "${json.metadata}"
