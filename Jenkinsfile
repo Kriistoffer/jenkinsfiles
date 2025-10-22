@@ -19,16 +19,11 @@ pipeline {
                         sh 'mkdir logs'
                     }
 
-                    env.REPOSITORIES.tokenize(',').each { repository ->
-                        dir("${repository}") {
-                            try {
-                                git branch: "${env.BRANCH}", credentialsId: "github-credentials", url: "${env.BASE_URL}/${repository}.git" 
-                            } catch (error) {
-                                echo "Failed to clone the repository due to ${error}"
-                                echo "Defaulting to the master branch..."
-                                git branch: "master", credentialsId: "github-credentials", url: "${env.BASE_URL}/${repository}.git"
-                            }
-                        }
+
+                    try {
+                        sh "git clone https://github.com/Kriistoffer/jenkins-frontend-1.git"
+                    } catch (error) {
+                        echo "Failed to clone the repository due to ${error}"
                     }
                 }
             }
