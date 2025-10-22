@@ -41,18 +41,23 @@ pipeline {
 
                         dir("${parentDirectory}") {
                             sh "npm install"
-                            sh "npm audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json"
+                            sh "npm audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json || true"
                         }
                     }
                 }
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-
-        //         }
-        //     }
-        // }
+        stage("Handle results") {
+            steps {
+                script {
+                    def json = readJson file: "${WORKSPACE}/logs/jenkins-frontend-1_audit.json"
+                    
+                    def data = []
+                    for (i = 0; i < json.vulnerabilities.size(); i++) {
+                            data["name"] = "${json.vulnerabilities[i].name}"
+                    }
+                }
+            }
+        }
     }
 }
