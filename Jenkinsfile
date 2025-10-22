@@ -55,8 +55,8 @@ pipeline {
 
 
                     def data = []
-                    for (int i = 0; i < json.size(); i++) {
-                            echo "${json[i]}"
+                    for (int i = 0; i <= json.size(); i++) {
+                            echo "${json[2]}"
                             // data.add("${json.vulnerabilities[i].name}")
                     }
                 }
