@@ -37,8 +37,8 @@ pipeline {
                         def parentDirectory = "${file.path}" - "/${file.name}"
 
                         dir("${parentDirectory}") {
-                            sh "${env.PACKETMANAGER} install"
-                            sh "${env.PACKETMANAGER} audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json"
+                            sh "npm install"
+                            sh "npm audit --json > ${WORKSPACE}/logs/${parentDirectory.replaceAll('/', '_')}_audit.json"
                         }
                     }
                 }
